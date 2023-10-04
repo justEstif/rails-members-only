@@ -6,10 +6,20 @@
     <hgroup>
       <h2><%= post.title %></h2>
       <% if user_signed_in? %>
-        <p><%= post.user.name %></p>
+        <div class="grid">
+          <p><%= post.user.name %></p>
+          <% if current_user.id == post.user.id %>
+            <p><%= link_to "Destroy",
+              post,
+              data: {
+                turbo_method: :delete,
+                turbo_confirm: "Are you sure?"
+              } %></p>
+          <% end %>
+        </div>
       <% else %>
         <p>Sign in to see author</p>
-      <%end%>
+      <% end %>
     </hgroup>
     <p><%= post.body %></p>
   </article>
