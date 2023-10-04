@@ -2,6 +2,10 @@
 <html>
   <head>
     <title>RailsMembersOnly</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@next/css/pico.min.css"
+    />
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -9,8 +13,24 @@
     <%= javascript_importmap_tags %>
   </head>
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
+    <nav class="container">
+      <ul>
+        <li><%= link_to "Message Board", root_path %></strong></li>
+      </ul>
+      <ul>
+        <% if user_signed_in? %>
+          <li><%= current_user.email %></li>
+        <li><%= link_to "Create Post", new_post_path %></li>
+          <li><%= button_to "Sign out", destroy_user_session_path, method: :delete %></li>
+        <% else %>
+          <li><%= button_to "Sign in", new_user_session_path %></li>
+        <% end %>
+      </ul>
+    </nav>
+    <main class="container">
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      <%= yield %>
+    </main>
   </body>
 </html>

@@ -1,0 +1,16 @@
+<header>
+  <h1>Posts</h1>
+</header>
+<% @posts.each do |post| %>
+  <article>
+    <hgroup>
+      <h2><%= post.title %></h2>
+      <% if user_signed_in? %>
+        <p><%= post.user.name %></p>
+      <% else %>
+        <p>Sign in to see author</p>
+      <%end%>
+    </hgroup>
+    <p><%= post.body %></p>
+  </article>
+<% end %>
